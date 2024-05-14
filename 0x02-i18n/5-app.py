@@ -4,6 +4,7 @@ This module simulates user login behavior in a Flask application,
 selecting language and timezone preferences based on the user's settings.
 """
 
+from typing import Dict, Union
 from flask import Flask, render_template, request, g
 from flask_babel import Babel, _
 
@@ -29,7 +30,7 @@ class Config:
 app.config.from_object(Config)
 
 
-def get_user():
+def get_user() -> Union[Dict, None]:
     """
     Retrieve a user dictionary from the users table based on the 'login_as' URL
     parameter.
@@ -41,25 +42,25 @@ def get_user():
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """Set the global user object before every request."""
     g.user = get_user()
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """
     Select a language translation to use based on the user settings or client
     request.
     """
-    user_locale = getattr(g.user, 'locale', None) if g.user else None
-    if user_locale and user_locale in app.config['LANGUAGES']:
+    user_locale = request.args.get('locale')
+    if user_locale in app.config['LANGUAGES']:
         return user_locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-@app.route('/')
-def index():
+@app.route('/', strict_slashes=False)
+def index() -> str:
     """Render a localized HTML template."""
     return render_template('5-index.html')
 
