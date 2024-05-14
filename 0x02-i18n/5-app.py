@@ -19,6 +19,7 @@ users = {
 
 class Config:
     """Configuration class for Flask app."""
+    DEBUG = True
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
