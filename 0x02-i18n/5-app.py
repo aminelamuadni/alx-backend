@@ -8,9 +8,6 @@ from typing import Dict, Union
 from flask import Flask, render_template, request, g
 from flask_babel import Babel, _
 
-app = Flask(__name__)
-babel = Babel(app)
-
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -27,6 +24,9 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
+app = Flask(__name__)
+babel = Babel(app)
+app.url_map.strict_slashes = False
 app.config.from_object(Config)
 
 
@@ -59,7 +59,7 @@ def get_locale() -> str:
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-@app.route('/', strict_slashes=False)
+@app.route('/')
 def index() -> str:
     """Render a localized HTML template."""
     return render_template('5-index.html')
