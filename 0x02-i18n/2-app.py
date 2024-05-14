@@ -8,10 +8,8 @@ from flask import Flask, render_template, request
 from flask_babel import Babel
 
 
-class Config(object):
-    """
-    Configuration class for Flask app.
-    """
+class Config:
+    """Configuration class for Flask app."""
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
@@ -23,20 +21,16 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get_locale() -> str:
-    """
-    Select a language translation to use based on the client request.
-    """
+def get_locale():
+    """Select a language translation to use based on the client request."""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/', strict_slashes=False)
-def index() -> str:
-    """
-    Render a basic HTML template.
-    """
+def index():
+    """Render a basic HTML template."""
     return render_template('2-index.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port='5000')
