@@ -4,8 +4,8 @@ This module configures a Flask application with Flask-Babel for
 internationalization, using gettext to parameterize templates.
 """
 
-from flask import Flask, render_template
-from flask_babel import Babel, _
+from flask import Flask, render_template, request
+from flask_babel import Babel
 
 
 class Config:
@@ -28,9 +28,8 @@ def get_locale():
 
 @app.route('/', strict_slashes=False)
 def index():
-    """Render a localized HTML template."""
-    return render_template('3-index.html', title=_("home_title"),
-                           header=_("home_header"))
+    """Render a basic HTML template."""
+    return render_template('3-index.html')
 
 
 if __name__ == '__main__':
