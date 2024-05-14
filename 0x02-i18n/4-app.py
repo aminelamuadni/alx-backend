@@ -16,8 +16,9 @@ class Config:
 
 
 app = Flask(__name__)
-app.config.from_object(Config)
 babel = Babel(app)
+app.url_map.strict_slashes = False
+app.config.from_object(Config)
 
 
 @babel.localeselector
@@ -32,7 +33,7 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-@app.route('/', strict_slashes=False)
+@app.route('/')
 def index():
     """Render a localized HTML template."""
     return render_template('4-index.html')
