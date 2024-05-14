@@ -17,6 +17,7 @@ class Config:
 
 app = Flask(__name__)
 app.config.from_object(Config)
+app.config['BABEL_SUPPORTED_LOCALES'] = ['en', 'fr', 'es']
 babel = Babel(app)
 
 
