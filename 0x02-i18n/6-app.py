@@ -25,9 +25,9 @@ class Config:
 
 
 app = Flask(__name__)
-babel = Babel(app)
 app.url_map.strict_slashes = False
 app.config.from_object(Config)
+babel = Babel(app)
 
 
 def get_user() -> Union[Dict, None]:
