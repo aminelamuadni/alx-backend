@@ -61,15 +61,23 @@ def get_locale() -> str:
     Returns:
         str: The selected language translation to use.
     """
-    user_locale = request.args.get('locale')
-    if user_locale and user_locale in app.config['LANGUAGES']:
-        return user_locale
-    if g.user and g.user['locale'] in app.config["LANGUAGES"]:
-        return g.user['locale']
-    header_locale = request.headers.get('locale', '')
-    if header_locale and header_locale in app.config["LANGUAGES"]:
+    # Extract 'locale' from query parameters
+    query_locale = request.args.get('locale')
+    if query_locale and query_locale in app.config['LANGUAGES']:
+        return query_locale
+
+    # Check if user is logged in and has a locale set
+    user = getattr(g, 'user', None)
+    if user and user.get('locale') in app.config['LANGUAGES']:
+        return user['locale']
+
+    # Extract 'locale' from headers
+    header_locale = request.headers.get('locale')
+    if header_locale and header_locale in app.config['LANGUAGES']:
         return header_locale
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+    # Default to the configured default locale
+    return app.config['BABEL_DEFAULT_LOCALE']
 
 
 @babel.timezoneselector
