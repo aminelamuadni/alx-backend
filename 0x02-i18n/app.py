@@ -104,7 +104,7 @@ def get_timezone() -> str:
 def index() -> str:
     """Render a localized HTML template."""
     g.time = format_datetime()
-    return render_template('5-index.html')
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
