@@ -35,6 +35,10 @@ def get_user() -> Union[Dict, None]:
     """
     Retrieve a user dictionary from the users table based on the 'login_as' URL
     parameter.
+
+    Returns:
+        Union[Dict, None]: A dictionary representing the user if found, None
+        otherwise.
     """
     user_id = request.args.get('login_as')
     if user_id:
@@ -53,6 +57,9 @@ def get_locale() -> str:
     """
     Select a language translation to use based on the user settings or client
     request.
+
+    Returns:
+        str: The selected language translation to use.
     """
     user_locale = request.args.get('locale')
     if user_locale in app.config['LANGUAGES']:
@@ -69,6 +76,12 @@ def get_locale() -> str:
 def get_timezone() -> str:
     """
     Select a timezone to use based on multiple sources, validated with pytz.
+
+    Returns:
+        str: The selected timezone.
+
+    Raises:
+        UnknownTimeZoneError: If the provided timezone is unknown.
     """
     tz_url = request.args.get('timezone', '').strip()
     if not tz_url and g.user:
