@@ -35,6 +35,10 @@ def get_user() -> Union[Dict, None]:
     """
     Retrieve a user dictionary from the users table based on the 'login_as' URL
     parameter.
+
+    Returns:
+        Union[Dict, None]: A dictionary representing the user if found, None
+        otherwise.
     """
     user_id = request.args.get('login_as')
     if user_id:
@@ -53,6 +57,9 @@ def get_locale() -> str:
     """
     Select a language translation to use based on the user settings or client
     request.
+
+    Returns:
+        str: The selected language translation to use.
     """
     user_locale = request.args.get('locale')
     if user_locale in app.config['LANGUAGES']:
