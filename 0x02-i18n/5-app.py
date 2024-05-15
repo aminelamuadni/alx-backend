@@ -53,6 +53,9 @@ def get_locale() -> str:
     """
     Select a language translation to use based on the user settings or client
     request.
+
+    Returns:
+        str: The selected language translation to use.
     """
     user_locale = request.args.get('locale')
     if user_locale in app.config['LANGUAGES']:
