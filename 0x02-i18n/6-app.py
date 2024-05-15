@@ -62,12 +62,12 @@ def get_locale() -> str:
         str: The selected language translation to use.
     """
     user_locale = request.args.get('locale')
-    if user_locale in app.config['LANGUAGES']:
+    if user_locale and user_locale in app.config['LANGUAGES']:
         return user_locale
     if g.user and g.user['locale'] in app.config["LANGUAGES"]:
         return g.user['locale']
     header_locale = request.headers.get('locale', '')
-    if header_locale in app.config["LANGUAGES"]:
+    if header_locale and header_locale in app.config["LANGUAGES"]:
         return header_locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
