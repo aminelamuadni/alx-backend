@@ -65,14 +65,14 @@ jobs.forEach((jobData, index) => {
 
     // Setting up event listeners for job progress, completion, and failure
     job.on('complete', () => {
-        console.log(`Notification job ${job.id} completed`);
+        console.log(`Notification job #${job.id} completed`);
     });
 
     job.on('failed', (err) => {
-        console.log(`Notification job ${job.id} failed: ${err}`);
+        console.log(`Notification job #${job.id} failed: ${err}`);
     });
 
     job.on('progress', (progress) => {
-        console.log(`Notification job ${job.id} ${progress}% complete`);
+        console.log(`Notification job #${job.id} ${progress}% complete`);
     });
 });
